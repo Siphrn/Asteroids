@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 from circleshape import CircleShape
 from player import Player
@@ -5,6 +7,7 @@ from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_state
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from logger import log_event
 
 def main():
     # Log some initial info about the game environment
@@ -42,6 +45,11 @@ def main():
     while True:
         log_state() # Logs state of spires
         updatable.update(dt) # Updates all sprites in updatable group
+        for asteroid in asteroids: # Checks for collisions between player and asteroids
+            if player.collides_with(asteroid):
+                log_event("player_hit") # Logs collision event
+                print("Game over!")
+                sys.exit()
         screen.fill("black") # - 
         for thing in drawable: # Draws all sprites in draw group
             thing.draw(screen)
