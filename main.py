@@ -46,16 +46,28 @@ def main():
 
     while True:
         log_state() # Logs state of spires
+
         updatable.update(dt) # Updates all sprites in updatable group
+
         for asteroid in asteroids: # Checks for collisions between player and asteroids
             if player.collides_with(asteroid):
                 log_event("player_hit") # Logs collision event
                 print("Game over!")
                 sys.exit()
+
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.collides_with(asteroid):
+                    log_event("asteroid_shot") # Logs collision event
+                    asteroid.kill()
+                    shot.kill()
+        
         screen.fill("black") # - 
         for thing in drawable: # Draws all sprites in draw group
             thing.draw(screen)
+
         pygame.display.flip() # - 
+
         for event in pygame.event.get(): # For quitting the game 
             if event.type == pygame.QUIT:
                 return
