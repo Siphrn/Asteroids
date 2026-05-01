@@ -14,10 +14,10 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
     while True:
         log_state()
+        player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        player.update(dt)
         screen.fill("black")
         player.draw(screen)
         pygame.display.flip()
@@ -26,7 +26,7 @@ def main():
                 return
         
         dt = clock.tick(60) / 1000  # Limit to 60 FPS and convert to seconds
-        
+
 
 
 if __name__ == "__main__":
