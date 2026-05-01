@@ -5,16 +5,24 @@ from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_state
 
 def main():
+    # Log some initial info about the game environment
+    
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
+
+    # Initialize pygame and create the game window
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    # Set up the game clock for managing frame rate and delta time
+
 
     clock = pygame.time.Clock()
     dt = 0
 
-
+    # Create sprite groups and initialize the player
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -23,18 +31,20 @@ def main():
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    # Game Loop
+
     while True:
-        log_state()
-        updatable.update(dt)
-        screen.fill("black")
-        for thing in drawable:
+        log_state() # Logs state of spires
+        updatable.update(dt) # Updates all sprites in updatable group
+        screen.fill("black") # - 
+        for thing in drawable: # Draws all sprites in draw group
             thing.draw(screen)
-        pygame.display.flip()
-        for event in pygame.event.get():
+        pygame.display.flip() # - 
+        for event in pygame.event.get(): # For quitting the game 
             if event.type == pygame.QUIT:
                 return
         
-        dt = clock.tick(60) / 1000  # Limit to 60 FPS and convert to seconds
+        dt = clock.tick(60) / 1000  # Limit to 60 FPS and convert to seconds 
 
 
 
